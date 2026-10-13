@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Часы смерти ⏰💀</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #ff4757;
+            box-shadow: 0 0 50px rgba(255, 71, 87, 0.3);
+        }
+        
+        h1 {
+            color: #ff4757;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+        
+        .subtitle {
+            color: #70a1ff;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .death-clock {
+            font-size: 4em;
+            font-weight: bold;
+            color: #fffa65;
+            text-shadow: 0 0 20px rgba(255, 250, 101, 0.5);
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            border: 2px solid #fffa65;
+        }
+        
+        .death-date {
+            font-size: 1.5em;
+            color: #ff9ff3;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #2f3542;
+            border-radius: 15px;
+            margin: 40px 0;
+            overflow: hidden;
+            border: 2px solid #57606f;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #ff4757, #ff3838);
+            width: 50%;
+            border-radius: 15px;
+            transition: width 1s ease;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+            margin: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #7bed9f;
+        }
+        
+        .stat-label {
+            color: #dfe4ea;
+            margin-top: 10px;
+        }
+        
+        .controls {
+            margin-top: 40px;
+        }
+        
+        button {
+            background: #3742fa;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #5352ed;
+            transform: scale(1.05);
+        }
+        
+        #resetBtn {
+            background: #ff6b81;
+        }
+        
+        #resetBtn:hover {
+            background: #ff4757;
+        }
+        
+        .quote {
+            margin-top: 40px;
+            font-style: italic;
+            color: #a4b0be;
+            font-size: 1.1em;
+            padding: 20px;
+            border-top: 1px dashed #57606f;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #747d8c;
+            font-size: 0.9em;
+        }
+        
+        .warning {
+            color: #ffa502;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .death-clock {
+                font-size: 2.5em;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰💀 ЧАСЫ СМЕРТИ 💀⏰</h1>
+        <div class="subtitle">Твои персональные часики тикают... Не трать время впустую!</div>
+        
+        <div class="death-clock" id="deathClock">
+            00:00:00:00
+        </div>
+        
+        <div class="death-date" id="deathDate">
+            Загрузка даты смерти...
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="lifeProgress"></div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="statDays">0</div>
+                <div class="stat-label">Дней осталось</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="statHours">0</div>
+                <div class="stat-label">Часов осталось</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="statMinutes">0</div>
+                <div class="stat-label">Минут осталось</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="statPercent">0%</div>
+                <div class="stat-label">Прожито жизни</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="pauseBtn">⏸️ Пауза/Продолжить</button>
+            <button id="resetBtn">🔄 Переродиться</button>
+        </div>
+        
+        <div class="quote" id="randomQuote">
+            Загрузка мотивирующей цитаты...
+        </div>
+        
+        <div class="footer">
+            <p class="warning">⚠️ Напоминание: Это шуточное приложение! Не принимайте его всерьёз! ⚠️</p>
+            <p>Ваша дата смерти была сгенерирована случайно и не имеет научного обоснования</p>
+            <p>© 2023 DeathClock Inc. Все права не защищены</p>
+        </div>
+    </div>
+
+    <script src="death-clock.js"></script>
+</body>
+</html>
